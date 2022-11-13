@@ -30,11 +30,13 @@ jobs:
           - environment-yaml: environment-mac.yml
             os: macos-12
             default-shell: bash -l {0}
-          - stable-diffusion-model: stable-diffusion-1.5
-            stable-diffusion-model-url: https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt
-            stable-diffusion-model-dl-path: models/ldm/stable-diffusion-v1
-            stable-diffusion-model-dl-name: v1-5-pruned-emaonly.ckpt
-    name: ${{ matrix.environment-yaml }} on ${{ matrix.os }}
+          # - stable-diffusion-model: https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt
+          #   stable-diffusion-model-dl-path: models/ldm/stable-diffusion-v1/sd-v1-4.ckpt
+          #   stable-diffusion-model-switch: stable-diffusion-1.4
+          - stable-diffusion-model: https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt
+            stable-diffusion-model-dl-path: models/ldm/stable-diffusion-v1/v1-5-pruned-emaonly.ckpt
+            stable-diffusion-model-switch: diffusers-1.5
+    name: ${{ matrix.os }} with ${{ matrix.stable-diffusion-model-switch }}
     runs-on: ${{ matrix.os }}
     env:
       CONDA_ENV_NAME: invokeai
