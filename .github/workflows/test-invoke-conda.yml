@@ -41,6 +41,7 @@ jobs:
     env:
       CONDA_ENV_NAME: invokeai
       INVOKEAI_ROOT: '${{ github.workspace }}/invokeai'
+      PYTHONUNBUFFERED: 1
     defaults:
       run:
         shell: ${{ matrix.default-shell }}
@@ -88,24 +89,16 @@ jobs:
         id: cache-sd-model
         uses: actions/cache@v3
         env:
-          cache-name: cache-${{ matrix.stable-diffusion-model }}
+          cache-name: cache-huggingface-${{ matrix.stable-diffusion-model }}
         with:
-          path: ${{ env.INVOKEAI_ROOT }}/${{ matrix.stable-diffusion-model-dl-path }}
+          path: ~/.cache/huggingface
           key: ${{ env.cache-name }}
 
-      - name: Download ${{ matrix.stable-diffusion-model }}
-        id: download-stable-diffusion-model
-        if: ${{ steps.cache-sd-model.outputs.cache-hit != 'true' }}
-        run: |
-          mkdir -p "${{ env.INVOKEAI_ROOT }}/${{ matrix.stable-diffusion-model-dl-path }}"
-          curl \
-            -H "Authorization: Bearer ${{ secrets.HUGGINGFACE_TOKEN }}" \
-            -o "${{ env.INVOKEAI_ROOT }}/${{ matrix.stable-diffusion-model-dl-path }}/${{ matrix.stable-diffusion-model-dl-name }}" \
-            -L ${{ matrix.stable-diffusion-model-url }}
-
-      - name: run configure_invokeai.py
+      - name: run preload_models.py
         id: run-preload-models
         run: |
+          mkdir -p ~/.huggingface
+          echo -n '${{ secrets.HUGGINGFACE_TOKEN }}' > ~/.huggingface/token
           python scripts/configure_invokeai.py --no-interactive --yes
 
       - name: cat ~/.invokeai
