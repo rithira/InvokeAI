@@ -99,6 +99,8 @@ jobs:
         run: |
           mkdir -p ~/.huggingface
           echo -n '${{ secrets.HUGGINGFACE_TOKEN }}' > ~/.huggingface/token
+          wc ~/.huggingface/token
+          echo -n Logged in to huggingface as: ; huggingface-cli whoami
           python scripts/configure_invokeai.py --no-interactive --yes
 
       - name: cat ~/.invokeai
