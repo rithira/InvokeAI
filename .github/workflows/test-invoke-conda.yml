@@ -89,7 +89,7 @@ jobs:
         id: cache-sd-model
         uses: actions/cache@v3
         env:
-          cache-name: cache-huggingface-${{ matrix.stable-diffusion-model }}
+          cache-name: huggingface-${{ matrix.stable-diffusion-model }}
         with:
           path: ~/.cache/huggingface
           key: ${{ env.cache-name }}
