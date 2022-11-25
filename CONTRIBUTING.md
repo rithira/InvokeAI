@@ -1,39 +1,40 @@
 # Would you like to help?
 
-InvokeAI is an open source application licensed under the MIT license. With the help of community input and contributions, it is being developed by a core team of folks from numerous professional and artistic backgrounds, including fine arts, software development, videogame development, and creative industries. We have a clear vision for what we want InvokeAI to be, but we will always welcome input from contributors, whether to support our efforts or to offer different skills or different ideas about our project and direction.
+InvokeAI is an open source application licensed under the MIT license. With the help of community input and contributions, it is being developed by a core team of people from varied artistic and professional backgrounds, including fine arts, software development, videogame development, and design and creative industries. We have a clear vision for what we want InvokeAI to be, but we will always welcome input from contributors, whether to support our efforts or to offer different skills or different ideas to complement our project and direction.
 
-There are a number of different pathways in to contributing. You don't need to know how to code -- there are plenty of other things that we could use help with -- but of course code contributions are always welcome, too. 
+There are a number of different pathways in to contributing. You don't need to know how to code &mdash; there are plenty of other things that we could use help with &mdash; but of course code contributions are always welcome, too. If you'd be interested in contributing to the project in the longer term, perhaps even joining the core team, you can get started on this path by helping us out with something concrete. That way we can begin to get to know you, and you can begin to get to know us, and we can all better decide if we want to work together in the longer term.
 
 <a name="talk-to-us"></a>
 ## If you'd like to talk first
 
-The best way to reach us is to join our discord (link on [the front page](https://github.com/invoke-ai)) and write to us - either in [#invoke-chat](https://discord.com/channels/1020123559063990373/1020123559831539744) if you'd like to have a general chat, or you can open a new thread under [💬﹚Contributor Forums](https://discord.com/channels/1020123559063990373/1020839344170348605) if you've got a concrete idea you want to talk through. We are an international team with members in very different timezones, so we may not reply immediately -- but rest assured that someone will respond in due time. 
+The best way to reach us is to join our discord (link on [the front page](https://github.com/invoke-ai)) and write to us there, either by posting a message in [#invoke-chat](https://discord.com/channels/1020123559063990373/1020123559831539744), or if you have a more concrete idea you want to walk through, you can open a new thread under [💬﹚Contributor Forums](https://discord.com/channels/1020123559063990373/1020839344170348605). We are an international team with members in very different timezones, so we may not reply immediately. We do try to read and respond to all messages in a timely manner but if it's been a day or two and nobody has responded, please ping someone on the list below.
 
 If you like, you can approach one of the section specialists directly:
-* For .ckpt loading, the `invoke>` CLI, documentation, safety, and diffusion engineering: @lstein
-* For community and product management: @hipsterusername 
-* For prompting, training, performance, and Mac compatibility: @damian0815
-* For installers: @tildebyte
-* For CI/CD and devops: @mauwii
-* For UI and front-end things: @psychedelicious or @blessedcoolant
+* For .ckpt loading, the `invoke>` CLI, documentation, safety, and diffusion engineering: **@lstein**
+* For community and product management, and non-engineering enquiries: **@hipsterusername** 
+* For prompting, training, performance, macOS compatibility, and diffusion engineering: **@damian0815**
+* For installers: **@tildebyte**
+* For CI/CD and devops: **@mauwii**
+* For the web UI design and code: **@psychedelicious** or **@blessedcoolant**
+* For design work more generally: **@netsvetaev**
 
-Or, if you're unsure, or you just want someone to talk with you through your idea, I'm available on Discord as @damian0815#6663 to chat, publically or privately, as you prefer. I know from my own experience that the initial approach to an open source project can sometimes be confusing and a even little nervewracking, and I would be happy to do whatever I can make it easier for you to help us out. 
+Or, if you're unsure, or you just want someone to talk with you through your idea, I'm available on Discord as **@damian0815** to chat, publically or privately, as you prefer. I know from my own experience that the initial approach to an open source project can sometimes be confusing and a even little nervewracking, and I would be happy to do whatever I can make it easier for you to help us out. 
 
-## What you can Contribute
+## What you can contribute
 
 ### Documentation, guides, and tutorials
 
-Everybody likes better documentation. You can edit the documentation [right here on GitHub](https://github.com/invoke-ai/InvokeAI/tree/main/docs) - click through to one of the `.md` files and click the edit button on the top right (looks like a pencil). After saving your edits you'll be prompted to enter a commit message and open a pull request. Feel free to ask for help in Discord if you get stuck.
+Everybody likes better documentation. You can edit the documentation [right here on GitHub](https://github.com/invoke-ai/InvokeAI/tree/main/docs) - click through to one of the `.md` files and click the edit button on the top right (looks like a pencil). After saving your edits you'll be prompted to enter a commit message and open a pull request. Feel free to [ask for help in Discord](#talk-to-us) if you get stuck.
 
-If you want to make a user guide, tutorial, or video about how you're using InvokeAI, we would love that. Please tell us about it! We will be more than happy to share the link on our Discord and other social media platforms. 
+If you want to make a user guide or tutorial, or a video about how you're using InvokeAI, we would love that &mdash; please [tell us about it](#talk-to-us)! We will be more than happy to share the link on our Discord and other social media. 
 
 ### Design and styling
 
-Although the Web UI design is being handled entirely within the team by our very talented designers, we're always looking for help illustrating, designing, and styling our documentation and website, to make it even more attractive and welcoming to use for everyone. If you'd like to contribute style guides, graphic design, typography or layout suggestions, please reach out to us in our Discord.  
+Although the Web UI design is being handled entirely within the team by our own very talented designers, we're always looking for help illustrating, designing, and styling for other parts of the project, such as our documentation and website, to make it even more attractive and welcoming for everyone. If you'd like to contribute style guides, graphic design, typography or layout suggestions, please [reach out to us on Discord](#talk-to-us) &mdash; **@netsvetaev** is the person you most likely want to talk to.  
 
 ### Artist Outreach
 
-Our vision for InvokeAI is to make it the best possible tool for artists to use Stable Diffusion and related technologies like a digital paintbrush: a sophisticated but very usable tool to have at hand in their artistic toolbox. We are always looking for feedback and collaboration with artists and other creative folk. Show us how you're using InvokeAI and help us to make it a better tool for you.  
+Our vision for InvokeAI is to make it the best possible tool for artists to use Stable Diffusion and related technologies like a digital paintbrush: a sophisticated but very usable tool to have at hand in their artistic toolbox. We are always looking for feedback and collaboration with artists and other creative folk. [Reach out to us on Discord](#talk-to-us) and show us how you're using InvokeAI, to help us to make it a better tool for you.
 
 ### QA and devops
 
@@ -43,11 +44,11 @@ Stable Diffusion is an immensely complicated system that is moving at a breaknec
 
 ### Fix a bug
 
-Bugfixes are always welcome. Check out [the InvokeAI bug tracker](https://github.com/invoke-ai/InvokeAI/issues) for open bugs, and see if you might be interested in fixing them. If you want to pick one up, please leave a comment and ideally tag the section specialist for the bug you're looking at, or you can tag me @damian0815 if you don't know who that might be.
+Bugfixes are always welcome. Check out [the InvokeAI bug tracker](https://github.com/invoke-ai/InvokeAI/issues) for open bugs, and see if you might be interested in fixing them. If you want to pick one up, please leave a comment and ideally tag the section specialist for the bug you're looking at, or you can tag me @damian0815 right in the GitHub comment if you don't know who that might be.
 
 ### Implement a new features
 
-If you've got an awesome feature you'd like to contribute, that's great! Please [open a feature request](https://github.com/invoke-ai/InvokeAI/issues/new?assignees=&labels=enhancement&template=FEATURE_REQUEST.yml&title=%5Benhancement%5D%3A+) to propose your idea, just to ensure that we understand what you want to do and that it doesn't overlap with work that is already in progress. We strongly suggest however that you take the time to [talk to us](#talk-to-us) about what you want to do before spending too much time - see above.
+If you've got an awesome feature you'd like to contribute, that's great! Please [open a feature request](https://github.com/invoke-ai/InvokeAI/issues/new?assignees=&labels=enhancement&template=FEATURE_REQUEST.yml&title=%5Benhancement%5D%3A+) to propose your idea, just to ensure that we understand what you want to do and that it doesn't overlap with work that is already in progress. We strongly suggest however that you take the time to [talk to us](#talk-to-us) about what you want to do before spending too much time on something.
 
 ### Making a Pull Request
 
@@ -55,21 +56,21 @@ If you're new to using git, we can help out. We do require some standards for pu
 
 As is usual on GitHub, we accept code contributions primarily through [Pull Requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests). The code will be reviewed, and although we are thankful for any contributions, it's very likely you'll get some feedback about your work and you may have to change things. This is the way that we ensure that the code quality remains as high as we can make it, across the whole project.
 
+The following are some basic things that we will be looking out for in submitted Pull Requests:
+
 - The PR (Pull Request) was made against the appropriate branch, usually `development`, and has been kept in sync with the parent branch as much as possible. 
   - This is to avoid merge conflicts and the need for heavy rebasing work.
-  - InvokeAI has a `main` branch (final releases) and `development` branch (WIP and
+    - InvokeAI has a `main` branch (final releases) and `development` branch (WIP and
   release candidates). `development` is merged into `main` when we are ready to
   release a new version.
 - The code meets our style and quality standards. 
-  - We can provide constructive feedback to help you achieve this.
-- The PR is a duplicate of existing work.
-  - Not all of the development and planning of InvokeAI happens on publically visible forums - this is one reason why it's best to talk to us first before putting in too much effort. 
+  - We will provide constructive feedback if needed to help you achieve this.
+- The PR does not duplicate of existing work.
+  - Not all of the development and planning of InvokeAI happens on publically visible forums. This is one reason why it's best to talk to us first before putting in too much effort. 
 - The PR is in line with where we want InvokeAI to be headed. 
-  - If the difference is minor we can of course help you resolve it - this is another reason why it's best to talk to us first.
+  - If the difference is minor we can of course help you resolve it. This is another reason why it's best to talk to us first.
 
-So, please make contact first. We are very responsive and just quickly checking
-in will ensure your time and energy (thank you!) does not go to waste.
-
+So, please [make contact](#talk-to-us) first. We are very responsive and just quickly checking in will ensure your time and energy (thank you!) does not go to waste.
 
 
 ## Contribution Domains
