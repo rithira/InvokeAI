@@ -15,6 +15,7 @@ If you like, you can approach one of the section specialists directly:
 * For prompting, training, performance, macOS compatibility, and diffusion engineering: **@damian0815**
 * For installers: **@tildebyte**
 * For CI/CD and devops: **@mauwii**
+* For invoke web server and incoming node-based UI: **@Kyle0654**
 * For the web UI design and engineering: **@psychedelicious** or **@blessedcoolant**
 * For design work more generally: **@netsvetaev**
 
