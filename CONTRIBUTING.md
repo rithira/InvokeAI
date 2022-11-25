@@ -18,7 +18,7 @@ If you like, you can approach one of the section specialists directly:
 * For the web UI design and engineering: **@psychedelicious** or **@blessedcoolant**
 * For design work more generally: **@netsvetaev**
 
-Or, if you're unsure, or you just want someone to talk with you through your idea, I'm available on Discord as **@damian0815** to chat, publically or privately, as you prefer. I know from my own experience that the initial approach to an open source project can sometimes be confusing and a even little nervewracking, and I would be happy to do whatever I can make it easier for you to help us out. 
+Or, if you're unsure, or you just want someone to talk with you through your idea, I'm available on Discord as **@damian0815** to chat, publicly or privately, as you prefer. I know from my own experience that the initial approach to an open source project can sometimes be confusing and a even little nerve-wracking, and I would be happy to do whatever I can make it easier for you to help us out. 
 
 ## What you can contribute
 
