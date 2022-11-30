@@ -1,6 +1,8 @@
-# How to build "binary" installers (InvokeAI-mac/windows/linux.zip)
+# How to build "binary" installers (InvokeAI-mac/windows/linux_on_*.zip)
 
-## 1. Ensure `installers/requirements.in` is correct and up to date on the branch to be installed.
+## 1. Ensure `installers/requirements.in` is correct 
+
+and up to date on the branch to be installed.
 
 ## <a name="step-2"></a> 2. Run `pip-compile` on each platform.
 
@@ -42,6 +44,8 @@ The branch and repo specified here **must** contain the correct reqs files. The 
 
 ## 4. Create zip files.
 
-cd into the `installers/` folder and run `./create_installers.sh`. This will create `InvokeAI-mac.zip`, `InvokeAI-windows.zip` and `InvokeAI-linux.zip`. These files can be distributed to end users, who should unzip them and run the .bat /.sh file to install the branch set in [step 3](#step-3) from the repo also set in step 3.
+cd into the `installers/` folder and run `./create_installers.sh`. This will create `InvokeAI-mac_on_<branch>_<gitcommit>.zip`, `InvokeAI-windowson_<branch>_<gitcommit>.zip` and `InvokeAI-linuxon_<branch>_<gitcommit>.zip`. These files can be distributed to end users.
 
-These zips will continue to funciont as installers for all future pushes to those branches, as long as necessary changes to `requirements.in` are propagated in a timely manner to the `py3.10-*-reqs.txt` files using pip-compile as outlined in [step 2](#step-2).
+These zips will continue to function as installers for all future pushes to those branches, as long as necessary changes to `requirements.in` are propagated in a timely manner to the `py3.10-*-reqs.txt` files using pip-compile as outlined in [step 2](#step-2).
+
+To actually install, users should unzip the installer into an empty folder and run `install.sh` on macOS/Linux or `install.bat` on Windows. 
