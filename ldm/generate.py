@@ -436,11 +436,8 @@ class Generate:
             self.sampler_name = sampler_name
             self._set_sampler()
 
-        if not hasattr(model, 'embedding_manager'):
-            warnings.warn(f"TODO: add embedding_manager for {model.__class__}")
-        else:
-            # apply the concepts library to the prompt
-            prompt = self.concept_lib().replace_concepts_with_triggers(prompt, lambda concepts: self.load_concepts(concepts))
+        # apply the concepts library to the prompt
+        prompt = self.concept_lib().replace_concepts_with_triggers(prompt, lambda concepts: self.load_concepts(concepts))
 
         # bit of a hack to change the cached sampler's karras threshold to
         # whatever the user asked for

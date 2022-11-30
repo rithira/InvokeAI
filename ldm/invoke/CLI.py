@@ -1,22 +1,24 @@
 import os
 import re
-import shlex
 import sys
-import traceback
+import shlex
+import copy
 import warnings
-from pathlib import Path
-
-import pyparsing
+import time
+import traceback
 import yaml
-from omegaconf import OmegaConf
 
-from ldm.invoke.args import Args, metadata_dumps, metadata_from_png, dream_cmd_from_png
 from ldm.invoke.globals import Globals
-from ldm.invoke.image_util import make_grid
-from ldm.invoke.log import write_log
-from ldm.invoke.pngwriter import PngWriter, retrieve_metadata, write_metadata
 from ldm.invoke.prompt_parser import PromptParser
 from ldm.invoke.readline import get_completer, Completer
+from ldm.invoke.args import Args, metadata_dumps, metadata_from_png, dream_cmd_from_png
+from ldm.invoke.pngwriter import PngWriter, retrieve_metadata, write_metadata
+from ldm.invoke.image_util import make_grid
+from ldm.invoke.log import write_log
+from ldm.invoke.concepts_lib import Concepts
+from omegaconf import OmegaConf
+from pathlib import Path
+import pyparsing
 
 # global used in multiple functions (fix)
 infile = None
@@ -306,10 +308,7 @@ def main_loop(gen, opt):
                     if use_prefix is not None:
                         prefix = use_prefix
                     postprocessed = upscaled if upscaled else operation=='postprocess'
-                    if not hasattr(gen.model, 'embedding_manager'):
-                        warnings.warn(f"TODO: add embedding_manager for {gen.model.__class__}")
-                    else:
-                        opt.prompt = gen.concept_lib().replace_triggers_with_concepts(opt.prompt)  # to avoid the problem of non-unique concept triggers
+                    opt.prompt = gen.concept_lib().replace_triggers_with_concepts(opt.prompt)  # to avoid the problem of non-unique concept triggers
                     filename, formatted_dream_prompt = prepare_image_metadata(
                         opt,
                         prefix,
@@ -808,9 +807,6 @@ def add_embedding_terms(gen,completer):
     Called after setting the model, updates the autocompleter with
     any terms loaded by the embedding manager.
     '''
-    if not hasattr(gen.model, 'embedding_manager'):
-        warnings.warn(f"TODO: add embedding_manager for {gen.model.__class__}")
-        return
     completer.add_embedding_terms(gen.model.embedding_manager.list_terms())
     
 def split_variations(variations_string) -> list:
