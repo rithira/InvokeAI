@@ -82,12 +82,10 @@ if [ "$OS_NAME" == "darwin" ] && [ "$OS_ARCH" == "arm64" ]; then
 fi
 
 # config
-echo "USING development BRANCH. REMEMBER TO CHANGE TO main BEFORE RELEASE"
 INSTALL_ENV_DIR="$(pwd)/installer_files/env"
 MICROMAMBA_DOWNLOAD_URL="https://micro.mamba.pm/api/micromamba/${MAMBA_OS_NAME}-${MAMBA_ARCH}/latest"
 RELEASE_URL=https://github.com/invoke-ai/InvokeAI
 # RELEASE_SOURCEBALL=/archive/refs/heads/main.tar.gz
-# RELEASE_SOURCEBALL=/archive/refs/heads/test-installer.tar.gz
 RELEASE_SOURCEBALL=/archive/refs/heads/test-binary-installer.tar.gz
 PYTHON_BUILD_STANDALONE_URL=https://github.com/indygreg/python-build-standalone/releases/download
 if [ "$OS_NAME" == "darwin" ]; then
@@ -95,6 +93,7 @@ if [ "$OS_NAME" == "darwin" ]; then
 elif [ "$OS_NAME" == "linux" ]; then
     PYTHON_BUILD_STANDALONE=20221002/cpython-3.10.7+20221002-${PY_ARCH}-unknown-linux-gnu-install_only.tar.gz
 fi
+echo "INSTALLING $RELEASE_SOURCEBALL FROM $RELEASE_URL"
 
 PACKAGES_TO_INSTALL=""
 
@@ -194,7 +193,7 @@ echo -e "We're running under"
 _err_exit $? _err_msg
 
 _err_msg="\n----- pip update failed -----\n"
-.venv/bin/python3 -m pip install "$no_cache_dir" --no-warn-script-location --upgrade pip
+.venv/bin/python3 -m pip install $no_cache_dir --no-warn-script-location --upgrade pip
 _err_exit $? _err_msg
 
 echo -e "\n***** Updated pip *****\n"
@@ -204,13 +203,13 @@ cp installer/py3.10-${OS_NAME}-"${OS_ARCH}"-${CD}-reqs.txt requirements.txt
 _err_exit $? _err_msg
 
 _err_msg="\n----- main pip install failed -----\n"
-.venv/bin/python3 -m pip install "$no_cache_dir" --no-warn-script-location -r requirements.txt
+.venv/bin/python3 -m pip install $no_cache_dir --no-warn-script-location -r requirements.txt
 _err_exit $? _err_msg
 
 echo -e "\n***** Installed Python dependencies *****\n"
 
 _err_msg="\n----- InvokeAI setup failed -----\n"
-.venv/bin/python3 -m pip install "$no_cache_dir" --no-warn-script-location -e .
+.venv/bin/python3 -m pip install $no_cache_dir --no-warn-script-location -e .
 _err_exit $? _err_msg
 
 echo -e "\n***** Installed InvokeAI *****\n"
@@ -229,6 +228,8 @@ deactivate
 
 echo -e "\n***** Finished downloading models *****\n"
 
-echo "All done! Run the command './invoke.sh' to start InvokeAI."
+echo "All done! Run the command"
+echo "  $scriptdir/invoke.sh"
+echo "to start InvokeAI."
 read -p "Press any key to exit..."
 exit
