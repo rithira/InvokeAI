@@ -6,7 +6,9 @@ and up to date on the branch to be installed.
 
 ## <a name="step-2"></a> 2. Run `pip-compile` on each platform.
 
-On each target platform, in the branch that is to be installed, and inside the InvokeAI git root folder, run the following commands:
+On each target platform, in the branch that is to be installed, and
+inside the InvokeAI git root folder, run the following commands:
+
 ```commandline
 conda activate invokeai # or however you activate python
 pip install pip-tools
@@ -24,28 +26,47 @@ matches the current OS and architecture.
 
 ## <a name="step-3"></a> 3. Set github repository and branch 
 
-Once all reqs files have been collected and committed **to the branch to be installed**, edit `installer/install.sh` so that `RELEASE_URL` and `RELEASE_SOURCEBALL` point to the github repo and branch that is to be installed. 
+Once all reqs files have been collected and committed **to the branch
+to be installed**, edit `installer/install.sh` so that `RELEASE_URL`
+and `RELEASE_SOURCEBALL` point to the github repo and branch that is
+to be installed.
 
-For example, to install `main` branch of `InvokeAI`, they should be set as follows:
+For example, to install `main` branch of `InvokeAI`, they should be
+set as follows:
 
 ```commandline
 RELEASE_URL=https://github.com/invoke-ai/InvokeAI
 RELEASE_SOURCEBALL=/archive/refs/heads/main.tar.gz
 ```
 
-Or, to install `damians-cool-feature` branch of `damian0815`, set them as follows:
+Or, to install `damians-cool-feature` branch of `damian0815`, set them
+as follows:
 
 ```commandline
 RELEASE_URL=https://github.com/damian0815/InvokeAI
 RELEASE_SOURCEBALL=/archive/refs/heads/damians-cool-feature.tar.gz
 ```
 
-The branch and repo specified here **must** contain the correct reqs files. The installer zip files **do not** contain requirements files, they are pulled from the specified branch during the installation process.
+The branch and repo specified here **must** contain the correct reqs
+files. The installer zip files **do not** contain requirements files,
+they are pulled from the specified branch during the installation
+process.
 
 ## 4. Create zip files.
 
-cd into the `installers/` folder and run `./create_installers.sh`. This will create `InvokeAI-mac_on_<branch>_<gitcommit>.zip`, `InvokeAI-windowson_<branch>_<gitcommit>.zip` and `InvokeAI-linuxon_<branch>_<gitcommit>.zip`. These files can be distributed to end users.
+cd into the `installers/` folder and run
+`./create_installers.sh`. This will create
+`InvokeAI-mac_on_<branch>_<gitcommit>.zip`,
+`InvokeAI-windowson_<branch>_<gitcommit>.zip` and
+`InvokeAI-linuxon_<branch>_<gitcommit>.zip`. These files can be
+distributed to end users.
 
-These zips will continue to function as installers for all future pushes to those branches, as long as necessary changes to `requirements.in` are propagated in a timely manner to the `py3.10-*-reqs.txt` files using pip-compile as outlined in [step 2](#step-2).
+These zips will continue to function as installers for all future
+pushes to those branches, as long as necessary changes to
+`requirements.in` are propagated in a timely manner to the
+`py3.10-*-reqs.txt` files using pip-compile as outlined in [step
+2](#step-2).
 
-To actually install, users should unzip the installer into an empty folder and run `install.sh` on macOS/Linux or `install.bat` on Windows. 
+To actually install, users should unzip the installer into an empty
+folder and run `install.sh` on macOS/Linux or `install.bat` on
+Windows.
