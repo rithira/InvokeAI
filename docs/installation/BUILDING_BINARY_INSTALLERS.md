@@ -10,7 +10,7 @@ conda activate invokeai # or however you activate python
 pip install pip-tools
 pip-compile --allow-unsafe --generate-hashes --output-file=installer/<reqsfile>.txt installer/requirements.in
 ```
-where `<reqsfile>` is whichever of
+where `<reqsfile>.txt` is whichever of
 ```commandline
 py3.10-darwin-arm64-mps-reqs.txt
 py3.10-darwin-x86_64-reqs.txt
@@ -22,7 +22,7 @@ matches the current OS and architecture.
 
 ## <a name="step-3"></a> 3. Set github repository and branch 
 
-Once all reqs files have been collected and committed to a branch, edit `installer/install.sh` so that `RELEASE_URL` and `RELEASE_SOURCEBALL` point to the github repo and branch that is to be installed. 
+Once all reqs files have been collected and committed **to the branch to be installed**, edit `installer/install.sh` so that `RELEASE_URL` and `RELEASE_SOURCEBALL` point to the github repo and branch that is to be installed. 
 
 For example, to install `main` branch of `InvokeAI`, they should be set as follows:
 
@@ -37,6 +37,8 @@ Or, to install `damians-cool-feature` branch of `damian0815`, set them as follow
 RELEASE_URL=https://github.com/damian0815/InvokeAI
 RELEASE_SOURCEBALL=/archive/refs/heads/damians-cool-feature.tar.gz
 ```
+
+The branch and repo specified here **must** contain the correct reqs files. The installer zip files **do not** contain requirements files, they are pulled from the specified branch during the installation process.
 
 ## 4. Create zip files.
 
