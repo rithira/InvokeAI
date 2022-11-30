@@ -10,7 +10,7 @@ conda activate invokeai # or however you activate python
 pip install pip-tools
 pip-compile --allow-unsafe --generate-hashes --output-file=installer/<reqsfile>.txt installer/requirements.in
 ```
-where <platform> is whichever of
+where `<reqsfile>` is whichever of
 ```commandline
 py3.10-darwin-arm64-mps-reqs.txt
 py3.10-darwin-x86_64-reqs.txt
