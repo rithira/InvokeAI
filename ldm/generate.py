@@ -1,43 +1,48 @@
 # Copyright (c) 2022 Lincoln D. Stein (https://github.com/lstein)
-import gc
-import os
-import random
-import re
-import sys
-import time
-import traceback
-import warnings
-
-import cv2
-import numpy as np
-import skimage
-import torch
-import transformers
-from PIL import Image, ImageOps
-from diffusers import DiffusionPipeline, DDIMScheduler, LMSDiscreteScheduler, EulerDiscreteScheduler, \
-    EulerAncestralDiscreteScheduler, PNDMScheduler, IPNDMScheduler
-from omegaconf import OmegaConf
-from pytorch_lightning import seed_everything, logging
-
-from ldm.invoke.args import metadata_from_png
-from ldm.invoke.concepts_lib import Concepts
-from ldm.invoke.conditioning import get_uc_and_c_and_ec
-from ldm.invoke.devices import choose_torch_device, choose_precision
-from ldm.invoke.globals import Globals
-from ldm.invoke.image_util import InitImageResizer
-from ldm.invoke.model_cache import ModelCache
-from ldm.invoke.pngwriter import PngWriter
-from ldm.invoke.seamless import configure_model_padding
-from ldm.invoke.txt2mask import Txt2Mask
-from ldm.models.diffusion.ddim import DDIMSampler
-from ldm.models.diffusion.ksampler import KSampler
-from ldm.models.diffusion.plms import PLMSSampler
-
-
+import pyparsing
 # Derived from source code carrying the following copyrights
 # Copyright (c) 2022 Machine Vision and Learning Group, LMU Munich
 # Copyright (c) 2022 Robin Rombach and Patrick Esser and contributors
 
+import torch
+import numpy as np
+import random
+import os
+import time
+import re
+import sys
+import traceback
+import transformers
+import io
+import gc
+import hashlib
+import cv2
+import skimage
+from diffusers import DiffusionPipeline, DDIMScheduler, LMSDiscreteScheduler, EulerDiscreteScheduler, \
+    EulerAncestralDiscreteScheduler, PNDMScheduler, IPNDMScheduler
+
+from omegaconf import OmegaConf
+from ldm.invoke.generator.base import downsampling
+from PIL import Image, ImageOps
+from torch import nn
+from pytorch_lightning import seed_everything, logging
+
+from ldm.invoke.prompt_parser import PromptParser
+from ldm.util import instantiate_from_config
+from ldm.invoke.globals import Globals
+from ldm.models.diffusion.ddim import DDIMSampler
+from ldm.models.diffusion.plms import PLMSSampler
+from ldm.models.diffusion.ksampler import KSampler
+from ldm.invoke.pngwriter import PngWriter
+from ldm.invoke.args import metadata_from_png
+from ldm.invoke.image_util import InitImageResizer
+from ldm.invoke.devices import choose_torch_device, choose_precision
+from ldm.invoke.conditioning import get_uc_and_c_and_ec
+from ldm.invoke.model_cache import ModelCache
+from ldm.invoke.seamless import configure_model_padding
+from ldm.invoke.txt2mask import Txt2Mask, SegmentedGrayscale
+from ldm.invoke.concepts_lib import Concepts
+    
 def fix_func(orig):
     if hasattr(torch.backends, 'mps') and torch.backends.mps.is_available():
         def new_func(*args, **kw):
@@ -855,12 +860,9 @@ class Generate:
         
         seed_everything(random.randrange(0, np.iinfo(np.uint32).max))
         if self.embedding_path is not None:
-            if not hasattr(self.model, 'embedding_manager'):
-                warnings.warn(f"TODO: add embedding_manager for {self.model.__class__}")
-            else:
-                self.model.embedding_manager.load(
-                    self.embedding_path, self.precision == 'float32' or self.precision == 'autocast'
-                )
+            self.model.embedding_manager.load(
+                self.embedding_path, self.precision == 'float32' or self.precision == 'autocast'
+            )
 
         self.model_name = model_name
         self._set_sampler()  # requires self.model_name to be set first
