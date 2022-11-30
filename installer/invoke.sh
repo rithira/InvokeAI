@@ -1,5 +1,9 @@
 #!/usr/bin/env sh
 
+# ensure we're in the correct folder in case user's CWD is somewhere else
+scriptdir=$(dirname "$0")
+cd "$scriptdir"
+
 set -eu
 
 . .venv/bin/activate

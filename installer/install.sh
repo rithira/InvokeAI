@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# ensure we're in the correct folder in case user's CWD is somewhere else
+scriptdir=$(dirname "$0")
+cd "$scriptdir"
+
 set -euo pipefail
 IFS=$'\n\t'
 
@@ -22,16 +26,14 @@ function _err_exit {
 
 # This enables a user to install this project without manually installing git or Python
 
+echo -e "\n***** Installing InvokeAI into $(pwd)... *****\n"
+
 export no_cache_dir="--no-cache-dir"
 if [ $# -ge 1 ]; then
     if [ "$1" = "use-cache" ]; then
         export no_cache_dir=""
     fi
 fi
-
-echo "$no_cache_dir"
-
-echo -e "\n***** Installing InvokeAI... *****\n"
 
 
 OS_NAME=$(uname -s)
@@ -83,7 +85,7 @@ fi
 echo "USING development BRANCH. REMEMBER TO CHANGE TO main BEFORE RELEASE"
 INSTALL_ENV_DIR="$(pwd)/installer_files/env"
 MICROMAMBA_DOWNLOAD_URL="https://micro.mamba.pm/api/micromamba/${MAMBA_OS_NAME}-${MAMBA_ARCH}/latest"
-RELEASE_URL=https://github.com/invoke-ai/InvokeAI
+RELEASE_URL=https://github.com/damian0815/InvokeAI
 # RELEASE_SOURCEBALL=/archive/refs/heads/main.tar.gz
 # RELEASE_SOURCEBALL=/archive/refs/heads/test-installer.tar.gz
 RELEASE_SOURCEBALL=/archive/refs/heads/test-binary-installer.tar.gz
