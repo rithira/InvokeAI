@@ -131,25 +131,25 @@ def invoke_cli():
     args = Args()
     config = args.parse_args()
 
-    # TODO: this should move either inside ApiDependencies, or to their own invocations (or...their own services?)
-    # Loading Face Restoration and ESRGAN Modules
-    try:
-        gfpgan, codeformer, esrgan = None, None, None
-        if config.restore or config.esrgan:
-            from ldm.invoke.restoration import Restoration
-            restoration = Restoration()
-            if config.restore:
-                gfpgan, codeformer = restoration.load_face_restore_models(config.gfpgan_dir, config.gfpgan_model_path)
-            else:
-                print('>> Face restoration disabled')
-            if config.esrgan:
-                esrgan = restoration.load_esrgan(config.esrgan_bg_tile)
-            else:
-                print('>> Upscaling disabled')
-        else:
-            print('>> Face restoration and upscaling disabled')
-    except (ModuleNotFoundError, ImportError):
-        print('>> You may need to install the ESRGAN and/or GFPGAN modules')
+    # # TODO: this should move either inside ApiDependencies, or to their own invocations (or...their own services?)
+    # # Loading Face Restoration and ESRGAN Modules
+    # try:
+    #     gfpgan, codeformer, esrgan = None, None, None
+    #     if config.restore or config.esrgan:
+    #         from ldm.invoke.restoration import Restoration
+    #         restoration = Restoration()
+    #         if config.restore:
+    #             gfpgan, codeformer = restoration.load_face_restore_models(config.gfpgan_dir, config.gfpgan_model_path)
+    #         else:
+    #             print('>> Face restoration disabled')
+    #         if config.esrgan:
+    #             esrgan = restoration.load_esrgan(config.esrgan_bg_tile)
+    #         else:
+    #             print('>> Upscaling disabled')
+    #     else:
+    #         print('>> Face restoration and upscaling disabled')
+    # except (ModuleNotFoundError, ImportError):
+    #     print('>> You may need to install the ESRGAN and/or GFPGAN modules')
 
     # Create Generate
     generate = Generate(
@@ -157,9 +157,9 @@ def invoke_cli():
         sampler_name   = config.sampler_name,
         embedding_path = config.embedding_path,
         full_precision = config.full_precision,
-        gfpgan         = gfpgan,
-        codeformer     = codeformer,
-        esrgan         = esrgan
+        # gfpgan         = gfpgan,
+        # codeformer     = codeformer,
+        # esrgan         = esrgan
     )
     generate.free_gpu_mem = config.free_gpu_mem
 

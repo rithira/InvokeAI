@@ -1,23 +1,22 @@
 # Copyright (c) 2022 Kyle Schouviller (https://github.com/kyle0654)
 
 from threading import Event
-from typing_extensions import Annotated
 from pydantic import BaseModel, PrivateAttr
 from pydantic.fields import Field
-from typing import Any, Callable, Dict, List, Union, get_args, get_type_hints
+from typing import Any, Callable, Dict, List, Union, get_args, get_type_hints, Annotated
 from graphlib import TopologicalSorter, CycleError
 from ..invocations.baseinvocation import BaseInvocation, BaseInvocationOutput
 from ..invocations import *
 
 
-InvocationsUnion = Annotated[Union[BaseInvocation.get_invocations()], Field(discriminator="type")]
-InvocationOutputsUnion = Annotated[Union[BaseInvocationOutput.get_all_subclasses_tuple()], Field(discriminator="type")]
+InvocationsUnion = Union[BaseInvocation.get_invocations()]
+InvocationOutputsUnion = Union[BaseInvocationOutput.get_all_subclasses_tuple()]
 
 class InvocationHistoryEntry(BaseModel):
     """The history of an invoked node"""
     invocation_id: str              = Field(description = "The id of the invocation definition")
-    invocation: InvocationsUnion    = Field(description = "The invocation that was run, with all parameters filled in")
-    outputs: InvocationOutputsUnion = Field(description = "Any outputs of the invocation")
+    invocation: InvocationsUnion    = Field(description = "The invocation that was run, with all parameters filled in", discriminator = "type")
+    outputs: InvocationOutputsUnion = Field(description = "Any outputs of the invocation", discriminator = "type")
 
 
 class InvocationFieldLink(BaseModel):
@@ -65,7 +64,7 @@ class InvocationSession(BaseModel):
     id: str
 
     # Invocations
-    invocations: Dict[str, InvocationsUnion] = Field(description = "All invocations")
+    invocations: Dict[str, Annotated[InvocationsUnion, Field(discriminator = "type")]] = Field(description = "All invocations")
     links: Dict[str, List[InvocationFieldLink]] = Field(description="All links between invocations")
 
     # Invocation history
@@ -78,7 +77,7 @@ class InvocationSession(BaseModel):
     def __init__(self,
         id: str,
         change_callback: Callable[['InvocationSession'], None] = None,
-        invocations: Dict[str, InvocationsUnion] = dict(),
+        invocations: Dict[str, Annotated[InvocationsUnion, Field(discriminator="type")]] = dict(),
         links: Dict[str, List[InvocationFieldLink]] = dict(),
         invocation_results: Dict[str, InvocationHistoryEntry] = dict(),
         history: List[str] = list()

@@ -1,7 +1,6 @@
 # Copyright (c) 2022 Kyle Schouviller (https://github.com/kyle0654)
 
-from typing import List, Union
-from typing_extensions import Annotated
+from typing import List, Union, Annotated
 from pydantic import BaseModel, Field, root_validator
 from graphlib import TopologicalSorter, CycleError
 from ..invocations import *

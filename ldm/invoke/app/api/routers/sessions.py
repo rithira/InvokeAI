@@ -1,7 +1,6 @@
 # Copyright (c) 2022 Kyle Schouviller (https://github.com/kyle0654)
 
-from typing import List, Optional, Union
-from typing_extensions import Annotated
+from typing import List, Optional, Union, Annotated
 from fastapi import Query, Path, Body
 from fastapi.routing import APIRouter
 from fastapi.responses import Response
