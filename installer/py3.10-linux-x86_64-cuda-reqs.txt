@@ -4,6 +4,7 @@
 #
 #    pip-compile --allow-unsafe --generate-hashes --output-file=installer/py3.10-linux-x86_64-cuda-reqs.txt installer/requirements.in
 #
+--extra-index-url https://download.pytorch.org/whl/torch_stable.html
 --extra-index-url https://download.pytorch.org/whl/cu116
 --trusted-host https
 
