@@ -86,7 +86,8 @@ class DiskSessionManager(SessionManagerABC):
     def set(self, session: InvocationSession) -> None:
         self.__set_cache(session)
         filename = self.__get_filename(session.id)
-        Path(filename).write_text(session.json())
+        session_json = session.json()
+        Path(filename).write_text(session_json)
 
     def create(self) -> InvocationSession:
         # TODO: consider using a provided id generator from services?
