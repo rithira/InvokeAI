@@ -46,7 +46,7 @@ class TextToImageInvocation(BaseInvocation):
         # Handle invalid model parameter
         # TODO: figure out if this can be done via a validator that uses the model_cache
         if self.model is None or self.model == '':
-            self.model = services.generate.model_cache.default_model
+            self.model = services.generate.model_cache.default_model()
 
         # Set the model (if already cached, this does nothing)
         services.generate.set_model(self.model)
@@ -87,7 +87,7 @@ class ImageToImageInvocation(TextToImageInvocation):
         # Handle invalid model parameter
         # TODO: figure out if this can be done via a validator that uses the model_cache
         if self.model is None or self.model == '':
-            self.model = services.generate.model_cache.default_model
+            self.model = services.generate.model_cache.default_model()
 
         # Set the model (if already cached, this does nothing)
         services.generate.set_model(self.model)
@@ -131,7 +131,7 @@ class InpaintInvocation(ImageToImageInvocation):
         # Handle invalid model parameter
         # TODO: figure out if this can be done via a validator that uses the model_cache
         if self.model is None or self.model == '':
-            self.model = services.generate.model_cache.default_model
+            self.model = services.generate.model_cache.default_model()
 
         # Set the model (if already cached, this does nothing)
         services.generate.set_model(self.model)

@@ -35,7 +35,7 @@ class FastAPIEventService(EventServiceBase):
 
     async def __dispatch_from_queue(self, stop_event: threading.Event):
         """Get events on from the queue and dispatch them, from the correct thread"""
-        while not stop_event.isSet():
+        while not stop_event.is_set():
             try:
                 event = self.__queue.get(block = False)
                 if not event: # Probably stopping

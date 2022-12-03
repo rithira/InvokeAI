@@ -12,7 +12,7 @@ from ..services.invocation_services import InvocationServices
 
 class ImageField(BaseModel):
     """An image field used for passing image objects between invocations"""
-    image_type: ImageType = Field(default=ImageType.RESULT, description="The type of the image")
+    image_type: str = Field(default=ImageType.RESULT, description="The type of the image")
     image_name: Optional[str] = Field(default=None, description="The name of the image")
 
 

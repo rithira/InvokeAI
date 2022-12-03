@@ -47,13 +47,13 @@ class Invoker:
 
 
     def __ensure_alive(self):
-        if self.__stop_event.isSet():
+        if self.__stop_event.is_set():
             raise Exception("Invoker has been stopped. Must create a new invoker.")
 
 
     def __process(self, stop_event: Event):
         try:
-            while not stop_event.isSet():
+            while not stop_event.is_set():
                 queue_item: InvocationQueueItem = self.invoker_services.queue.get()
                 if not queue_item: # Probably stopping
                     continue
