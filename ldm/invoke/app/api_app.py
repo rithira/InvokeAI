@@ -57,6 +57,7 @@ async def startup_event():
     config = args.parse_args()
 
     ApiDependencies.initialize(
+        args             = args,
         config           = config,
         event_handler_id = event_handler_id
     )
