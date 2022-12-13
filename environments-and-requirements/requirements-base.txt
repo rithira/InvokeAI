@@ -1,6 +1,7 @@
 # pip will resolve the version which matches torch
 albumentations
-dependency_injector==4.40.0
+### TEMP - testing fix for https://github.com/invoke-ai/InvokeAI/issues/1944
+https://github.com/ebr/python-dependency-injector/archive/refs/heads/fix-cp949-locale.zip
 diffusers==0.10.*
 einops
 eventlet
