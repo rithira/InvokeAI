@@ -219,9 +219,12 @@ class ModelCache(object):
         tic = time.time()
 
         # this does the work
+        print(f'DEBUG: _load_model() loading config file')
         if not os.path.isabs(config):
             config = os.path.join(Globals.root,config)
         omega_config = OmegaConf.load(config)
+
+        print(f'DEBUG: _load_model() calculating hash')
         with open(weights,'rb') as f:
             weight_bytes = f.read()
         model_hash  = self._cached_sha256(weights,weight_bytes)
@@ -230,15 +233,20 @@ class ModelCache(object):
         # merged models from auto11 merge board are flat for some reason
         if 'state_dict' in sd:
             sd = sd['state_dict']
+        print(f'DEBUG: _load_model() instantiate_from_comfig')
         model = instantiate_from_config(omega_config.model)
+
+        print(f'DEBUG: _load_model() load_state_dict')
         model.load_state_dict(sd, strict=False)
 
+        print(f'DEBUG: _load_model() setting precision')
         if self.precision == 'float16':
             print('   | Using faster float16 precision')
             model.to(torch.float16)
         else:
             print('   | Using more accurate float32 precision')
 
+        print(f'DEBUG: _load_model() loading VAE')
         # look and load a matching vae file. Code borrowed from AUTOMATIC1111 modules/sd_models.py
         if vae:
             if not os.path.isabs(vae):
@@ -251,12 +259,17 @@ class ModelCache(object):
             else:
                 print(f'   | VAE file {vae} not found. Skipping.')
 
+        print(f'DEBUG: _load_model() setting device to GPU')
         model.to(self.device)
+
+        print(f'DEBUG: _load_model() setting cond_stage_model.device')
         # model.to doesn't change the cond_stage_model.device used to move the tokenizer output, so set it here
         model.cond_stage_model.device = self.device
 
+        print(f'DEBUG: _load_model() model.eval()')
         model.eval()
 
+        print(f'DEBUG: _load_model() setting padding_mode')
         for module in model.modules():
             if isinstance(module, (torch.nn.Conv2d, torch.nn.ConvTranspose2d)):
                 module._orig_padding_mode = module.padding_mode
@@ -318,6 +331,7 @@ class ModelCache(object):
             least_recent_model = self._pop_oldest_model()
             print(f'>> Cache limit (max={self.max_loaded_models}) reached. Purging {least_recent_model}')
             if least_recent_model is not None:
+                print('DEBUG: _make_cache_room(): deleting old model and garbage collecting')
                 del self.models[least_recent_model]
                 gc.collect()
 
@@ -358,19 +372,28 @@ class ModelCache(object):
 
     def _model_to_cpu(self,model):
         if self.device != 'cpu':
+            print(f'DEBUG: _model_to_cpu() setting cond_stage_model.device')
             model.cond_stage_model.device = 'cpu'
+            print(f'DEBUG: _model_to_cpu() setting first_stage_model device')
             model.first_stage_model.to('cpu')
+            print(f'DEBUG: _model_to_cpu() setting cond_stage_model device (again)')
             model.cond_stage_model.to('cpu')
+            print(f'DEBUG: _model_to_cpu() setting model.model device')
             model.model.to('cpu')
+            print(f'DEBUG: _model_to_cpu() setting model device')
             return model.to('cpu')
         else:
             return model
 
     def _model_from_cpu(self,model):
         if self.device != 'cpu':
+            print(f'DEBUG: _model_from_cpu() setting model device')
             model.to(self.device)
+            print(f'DEBUG: _model_from_cpu() setting first_stage_model device')
             model.first_stage_model.to(self.device)
+            print(f'DEBUG: _model_from_cpu() setting cond_stage_model device')
             model.cond_stage_model.to(self.device)
+            print(f'DEBUG: _model_from_cpu() setting cond_stage_model device (again)')
             model.cond_stage_model.device = self.device
         return model
 
