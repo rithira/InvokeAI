@@ -211,6 +211,8 @@ class ModelCache(object):
 
         print(f'>> Loading {model_name} from {weights}')
 
+        print(f'DEBUG: CPU RAM STATS (1) = {psutil.virtual_memory()}')
+
         # for usage statistics
         if self._has_cuda():
             torch.cuda.reset_peak_memory_stats()
@@ -233,13 +235,17 @@ class ModelCache(object):
         # merged models from auto11 merge board are flat for some reason
         if 'state_dict' in sd:
             sd = sd['state_dict']
-        print(f'DEBUG: _load_model() instantiate_from_comfig')
+
+        print(f'DEBUG: _load_model() instantiate_from_config')
+        print(f'DEBUG: CPU RAM STATS (2) = {psutil.virtual_memory()}')
         model = instantiate_from_config(omega_config.model)
 
         print(f'DEBUG: _load_model() load_state_dict')
+        print(f'DEBUG: CPU RAM STATS (3) = {psutil.virtual_memory()}')
         model.load_state_dict(sd, strict=False)
 
         print(f'DEBUG: _load_model() setting precision')
+        print(f'DEBUG: CPU RAM STATS (4) = {psutil.virtual_memory()}')
         if self.precision == 'float16':
             print('   | Using faster float16 precision')
             model.to(torch.float16)
@@ -247,6 +253,7 @@ class ModelCache(object):
             print('   | Using more accurate float32 precision')
 
         print(f'DEBUG: _load_model() loading VAE')
+        print(f'DEBUG: CPU RAM STATS (5) = {psutil.virtual_memory()}')
         # look and load a matching vae file. Code borrowed from AUTOMATIC1111 modules/sd_models.py
         if vae:
             if not os.path.isabs(vae):
@@ -260,16 +267,20 @@ class ModelCache(object):
                 print(f'   | VAE file {vae} not found. Skipping.')
 
         print(f'DEBUG: _load_model() setting device to GPU')
+        print(f'DEBUG: CPU RAM STATS (6) = {psutil.virtual_memory()}')        
         model.to(self.device)
 
         print(f'DEBUG: _load_model() setting cond_stage_model.device')
+        print(f'DEBUG: CPU RAM STATS (7) = {psutil.virtual_memory()}')        
         # model.to doesn't change the cond_stage_model.device used to move the tokenizer output, so set it here
         model.cond_stage_model.device = self.device
 
         print(f'DEBUG: _load_model() model.eval()')
+        print(f'DEBUG: CPU RAM STATS (8) = {psutil.virtual_memory()}')        
         model.eval()
 
         print(f'DEBUG: _load_model() setting padding_mode')
+        print(f'DEBUG: CPU RAM STATS (9) = {psutil.virtual_memory()}')        
         for module in model.modules():
             if isinstance(module, (torch.nn.Conv2d, torch.nn.ConvTranspose2d)):
                 module._orig_padding_mode = module.padding_mode
@@ -285,7 +296,8 @@ class ModelCache(object):
                 '\n>> Current VRAM usage:'
                 '%4.2fG' % (torch.cuda.memory_allocated() / 1e9),
             )
-
+        print(f'DEBUG: CPU RAM STATS (10) = {psutil.virtual_memory()}')
+        
         return model, width, height, model_hash
 
     def offload_model(self, model_name:str) -> None:
